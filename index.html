@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resizable Grid</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="controls">
+        <label for="width-input">Number of Columns (excluding fixed first column, max 7):</label
+      >
+      <input type="number" id="width-input" min="1" max="7" value="5" />
+      <label for="grid-count">Number of Grids (max 4):</label>
+        <input type="number" id="grid-count" min="1" max="4" value="1" />
+        <button id="update-button">Update Width</button>
+        <button id="generate-button">Generate Numbers</button>
+        <button id="clear-state-button">Clear State</button>
+        <span id="press-counter">Press Count: 0</span>
+    </div>
+    <div id="error-message" class="error-message"></div>
+    <div class="container">
+        <input type="text" id="empty-input" placeholder="Empty Input" />
+        <div class="random-numbers">
+            <input type="text" id="random-1" class="random-field" readonly />
+            <input type="text" id="random-2" class="random-field" readonly />
+            <input type="text" id="random-3" class="random-field" readonly />
+            <input type="text" id="random-4" class="random-field" readonly />
+            <input type="text" id="random-5" class="random-field" readonly />
+            <input type="text" id="random-6" class="random-field" readonly />
+        </div>
+    </div>
+    <div id="grids-container"></div>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
