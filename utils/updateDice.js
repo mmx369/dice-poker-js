@@ -1,7 +1,7 @@
 export function updateDice(field, number) {
-  field.className = ''; // Reset the class
+  field.className = '';
   field.classList.add('dice');
-  field.innerHTML = ''; // Clear previous dots
+  field.innerHTML = '';
 
   const dotPositions = [
     [],

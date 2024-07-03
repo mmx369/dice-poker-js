@@ -11,8 +11,8 @@ const data = [
   'FH',
   'FOK',
   'P',
-  'SmStr',
-  'LStr',
+  'SmSt',
+  'LSt',
   'Sum',
 ];
 
@@ -43,7 +43,7 @@ export function createGrid(
     // Add the fixed text column from the array
     const fixedCell = document.createElement('div');
     fixedCell.classList.add('cell', 'first-column');
-    if (row === 5 || row === 6) {
+    if (row === 5) {
       fixedCell.classList.add('bold-bottom-border');
     }
     if (row === height - 1) {
@@ -51,6 +51,12 @@ export function createGrid(
     }
     if (row === 0) {
       fixedCell.classList.add('bold-top-border');
+    }
+    if (row === 14) {
+      fixedCell.classList.add('bold-bottom-border');
+    }
+    if (row === 15) {
+      fixedCell.classList.add('last-column');
     }
     fixedCell.textContent = data[row] !== undefined ? data[row] : ''; // Fills with data from the array or empty if out of bounds
     container.appendChild(fixedCell);
@@ -62,22 +68,19 @@ export function createGrid(
     for (let col = 0; col < width; col++) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
-      if (col === 0) {
-        cell.classList.add('bold-left-border');
-      }
-      if (col === width - 1) {
-        cell.classList.add('bold-right-border');
-      }
-      if (row === height - 1) {
-        cell.classList.add('bold-bottom-border');
-      }
       if (row === 0) {
         cell.classList.add('bold-top-border');
       }
-      if (row === 5 || row === 6) {
+      if (row === 5) {
         cell.classList.add('bold-bottom-border');
       }
-      cell.textContent = ''; // Initialize as empty
+      if (row === 14) {
+        cell.classList.add('bold-bottom-border');
+      }
+      if (row === 15) {
+        cell.classList.add('last-column', 'bold-bottom-border');
+      }
+      cell.textContent = '';
       container.appendChild(cell);
       rowCells.push(cell);
 
@@ -122,7 +125,7 @@ export function createGrid(
     // Add the empty column at the end with sum of row
     const sumCell = document.createElement('div');
     sumCell.classList.add('cell', 'last-column', 'bold-right-border');
-    if (row === 5 || row === 6) {
+    if (row === 5) {
       sumCell.classList.add('bold-bottom-border');
     }
     if (row === height - 1) {
@@ -133,6 +136,7 @@ export function createGrid(
     }
     if (row === 14) {
       sumCell.textContent = 'X';
+      sumCell.classList.add('bold-bottom-border');
     }
     container.appendChild(sumCell);
     rowSumCells.push(sumCell);
@@ -263,15 +267,19 @@ export function createGrid(
   function updateTotalSum() {
     let totalSum = 0;
     let allFilled = true;
+    console.log('Width: ', width);
     // Sum of all cells in the last row
     for (let col = 0; col < width; col++) {
       const value = columnSumCells[col].textContent;
+      console.log(888, value);
       if (!isNaN(value)) {
         totalSum += parseFloat(value);
       } else {
         allFilled = false;
       }
     }
+    console.log(999, totalSum);
+
     // Sum of all cells in the last column (excluding the last cell)
     for (let row = 0; row < lastRow; row++) {
       const cell = container.children[row * (width + 2) + width + 1];
@@ -284,6 +292,7 @@ export function createGrid(
         allFilled = false;
       }
     }
+
     // Display the total sum if all cells are filled and no other grid has summed
     if (allFilled) {
       if (gridHasSum === -1 || gridHasSum === gridIndex) {

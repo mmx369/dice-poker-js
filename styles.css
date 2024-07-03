@@ -59,19 +59,18 @@ body {
 
 .grid {
   display: grid;
-  grid-template-rows: repeat(16, 1fr);
-  gap: 0; /* Set gap to 0 to ensure border controls spacing */
+  grid-template-rows: repeat(0, 0);
+  gap: 0;
   border: 2px solid transparent;
 }
 
 .grid.active {
-  border-color: blue;
+  box-shadow: 8px 5px 5px #93cacf;
 }
 
 .cell {
   background-color: white;
   border: 1px solid #ccc;
-  width: 30px;
   height: 30px;
   display: flex;
   justify-content: center;
@@ -82,19 +81,30 @@ body {
 
 .first-column {
   background-color: lightblue;
+  border-left: 3px solid black !important;
+  width: 30px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: default;
 }
+
 .last-column {
   background-color: lightgreen;
+  cursor: default;
 }
+
 .bold-bottom-border {
   border-bottom: 3px solid black !important;
 }
+
 .bold-right-border {
   border-right: 3px solid black !important;
 }
+
 .bold-left-border {
   border-left: 3px solid black !important;
 }
+
 .bold-top-border {
   border-top: 3px solid black !important;
 }
@@ -143,6 +153,10 @@ body {
 
 .selected {
   background-color: #bbe8bb;
+}
+
+.total-sum {
+  margin: 15px 0;
 }
 
 @keyframes roll {

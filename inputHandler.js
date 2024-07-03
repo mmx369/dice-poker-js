@@ -28,18 +28,16 @@ export function setupInputHandler(gridsContainer, height) {
     resetRandomFields();
   }
 
-  //toggle generate button activ-not activ
   function enableGenerateButton() {
     generateButton.disabled = false;
   }
 
-  //switch active grid
   function switchActiveGrid() {
     const grids = document.querySelectorAll('.grid');
     grids[activeGridIndex].classList.remove('active');
     activeGridIndex = (activeGridIndex + 1) % grids.length;
     grids[activeGridIndex].classList.add('active');
-    saveState(); // Save state after switching active grid
+    saveState();
   }
 
   function activateFirstGrid() {
@@ -52,7 +50,7 @@ export function setupInputHandler(gridsContainer, height) {
       }
     });
     activeGridIndex = 0;
-    saveState(); // Save state after activating the first grid
+    saveState();
   }
 
   function createMultipleGrids(state = null) {
@@ -95,7 +93,6 @@ export function setupInputHandler(gridsContainer, height) {
         );
       }
 
-      // Restore grid state if available
       if (state) {
         const gridState = state.grids[i];
         Array.from(gridElement.children).forEach((cell, index) => {
@@ -131,17 +128,19 @@ export function setupInputHandler(gridsContainer, height) {
       setFocusToInput();
       setTimeout(() => {
         removeSelected();
+        const finalNumbers = [];
+        for (let i = 1; i <= 6; i++) {
+          const field = document.getElementById(`random-${i}`);
+          const selectedValue = parseInt(field.dataset.diceValue, 10);
+          finalNumbers.push(selectedValue);
+        }
+        const sortedFinalNumbers = [...finalNumbers].sort((a, b) => a - b);
+        for (let i = 1; i <= 6; i++) {
+          const field = document.getElementById(`random-${i}`);
+          updateDice(field, sortedFinalNumbers[i - 1]);
+        }
       }, 1000);
     }
-    // const selectedNumbers = [];
-
-    // for (let i = 1; i <= 6; i++) {
-    //   const field = document.getElementById(`random-${i}`);
-    //   if (field.classList.contains('selected')) {
-    //     const selectedValue = parseInt(field.dataset.diceValue, 10);
-    //     selectedNumbers.push(selectedValue);
-    //   }
-    // }
 
     for (let i = 1; i <= 6; i++) {
       const field = document.getElementById(`random-${i}`);
@@ -165,16 +164,15 @@ export function setupInputHandler(gridsContainer, height) {
     const field = document.getElementById(`random-${i}`);
     field.addEventListener('click', () => {
       field.classList.toggle('selected');
-      saveState(); // Save state after toggling selection
+      saveState();
     });
   }
 
-  // Load state on page load
   const savedState = loadState();
   if (savedState) {
     createMultipleGrids(savedState);
   } else {
     createMultipleGrids();
   }
-  enableGenerateButton(); // Ensure the generate button is enabled initially
+  enableGenerateButton();
 }
