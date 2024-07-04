@@ -1,4 +1,4 @@
-export const data = [
+export const FIRST_ROW_DATA = [
   1,
   2,
   3,
@@ -15,3 +15,5 @@ export const data = [
   'Sbig',
   'Sum',
 ];
+
+export const INITIAL_HEIGHT = 16;

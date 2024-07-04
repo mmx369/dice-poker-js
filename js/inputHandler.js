@@ -1,7 +1,9 @@
-import { createGrid, saveState, loadState, clearState } from './grid.js';
+import { createGrid } from './grid.js';
 import { removeSelected } from './utils/removeSelected.js';
 import { updateDice } from './utils/updateDice.js';
 import { setFocusToInput } from './utils/setFocusToInput.js';
+import { saveState, loadState, clearState } from './utils/state.js';
+import { resetRandomFields } from './utils/resetRandomFields.js';
 
 export function setupInputHandler(gridsContainer, height) {
   const widthInput = document.getElementById('width-input'); //table width
@@ -12,15 +14,6 @@ export function setupInputHandler(gridsContainer, height) {
 
   let buttonPressCount = 0;
   let activeGridIndex = 0;
-
-  function resetRandomFields() {
-    for (let i = 1; i <= 6; i++) {
-      const field = document.getElementById(`random-${i}`);
-      field.value = '';
-      field.classList.remove('selected');
-      field.innerHTML = '';
-    }
-  }
 
   function resetGenerator() {
     buttonPressCount = 0;

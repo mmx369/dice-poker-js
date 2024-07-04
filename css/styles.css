@@ -157,6 +157,7 @@ body {
 
 .total-sum {
   margin: 15px 0;
+  font-weight: 600;
 }
 
 @keyframes roll {
